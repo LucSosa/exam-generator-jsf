@@ -1,4 +1,4 @@
-package br.com.devdojo.examgeneratorjsf;
+package br.com.devdojo.examgenerator;
 
 import java.io.*;
 import javax.servlet.http.*;
