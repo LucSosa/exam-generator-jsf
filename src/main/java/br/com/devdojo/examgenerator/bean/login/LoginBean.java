@@ -24,10 +24,18 @@ public class LoginBean implements Serializable {
         this.loginDAO = loginDAO;
         this.externalContext = externalContext;
     }
+
     public String login() throws UnsupportedEncodingException {
         Token token = loginDAO.loginReturningToken("lucas", "devdojo");
         return token == null ? null : addCookiesExpirationTimeToCookiesAndReturnIndex(token);
     }
+
+    public String logout() {
+        externalContext.addResponseCookie("token", null, null);
+        externalContext.addResponseCookie("expirationTime", null, null);
+        return "login.xhtml?faces-redirect=true";
+    }
+
     private String addCookiesExpirationTimeToCookiesAndReturnIndex(Token token) throws UnsupportedEncodingException {
         externalContext.addResponseCookie("token", URLEncoder.encode(token.getToken(), "UTF-8"), null);
         externalContext.addResponseCookie("expirationTime", token.getExpirationTime().toString(), null);
